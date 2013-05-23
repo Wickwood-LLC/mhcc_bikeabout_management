@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the MHCC BikeAbout Management feature.
+ */
+
+include_once 'mhcc_bikeabout_management.features.inc';
