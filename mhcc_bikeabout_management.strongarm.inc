@@ -153,7 +153,7 @@ function mhcc_bikeabout_management_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_mhcc_complimentary_organizationa';
   $strongarm->value = array(
-    0 => 'status',
+    0 => 'moderation',
     1 => 'revision',
   );
   $export['node_options_mhcc_complimentary_organizationa'] = $strongarm;
@@ -162,7 +162,7 @@ function mhcc_bikeabout_management_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_mhcc_complimentary_organizationa';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_mhcc_complimentary_organizationa'] = $strongarm;
 
   $strongarm = new stdClass();

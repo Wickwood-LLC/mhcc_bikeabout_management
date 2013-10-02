@@ -239,6 +239,7 @@ function mhcc_bikeabout_management_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'MHCC BikeAbout Users List';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -250,6 +251,7 @@ function mhcc_bikeabout_management_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'table';
@@ -262,82 +264,57 @@ function mhcc_bikeabout_management_views_default_views() {
     'thousand_separator' => ',',
     'prefix_suffix' => 0,
   );
-  /* Field: User: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'users';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address']['id'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['label'] = 'Street';
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['text'] = '[field_mailing_address-thoroughfare]';
-  $handler->display->display_options['fields']['field_mailing_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_1']['id'] = 'field_mailing_address_1';
-  $handler->display->display_options['fields']['field_mailing_address_1']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['label'] = 'City';
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['text'] = '[field_mailing_address_1-locality]';
-  $handler->display->display_options['fields']['field_mailing_address_1']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_1']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_2']['id'] = 'field_mailing_address_2';
-  $handler->display->display_options['fields']['field_mailing_address_2']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['label'] = 'State';
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['text'] = '[field_mailing_address_2-administrative_area]';
-  $handler->display->display_options['fields']['field_mailing_address_2']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_2']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_3']['id'] = 'field_mailing_address_3';
-  $handler->display->display_options['fields']['field_mailing_address_3']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['label'] = 'Zip Code';
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['text'] = '[field_mailing_address_3-postal_code]';
-  $handler->display->display_options['fields']['field_mailing_address_3']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_3']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = '';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   /* Field: User: Formal Full Name */
   $handler->display->display_options['fields']['field_formal_full_name']['id'] = 'field_formal_full_name';
   $handler->display->display_options['fields']['field_formal_full_name']['table'] = 'field_data_field_formal_full_name';
   $handler->display->display_options['fields']['field_formal_full_name']['field'] = 'field_formal_full_name';
   $handler->display->display_options['fields']['field_formal_full_name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_formal_full_name']['alter']['path'] = 'users/[uid]/edit';
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  /* Field: User: Mailing address - Thoroughfare (i.e. Street address) */
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['id'] = 'field_mailing_address_thoroughfare';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['field'] = 'field_mailing_address_thoroughfare';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['label'] = 'Street';
+  /* Field: User: Mailing address - Premise (i.e. Apartment / Suite number) */
+  $handler->display->display_options['fields']['field_mailing_address_premise']['id'] = 'field_mailing_address_premise';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['field'] = 'field_mailing_address_premise';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['label'] = 'Street 2';
+  /* Field: User: Mailing address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_mailing_address_locality']['id'] = 'field_mailing_address_locality';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['field'] = 'field_mailing_address_locality';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['label'] = 'City';
+  /* Field: User: Mailing address - Administrative area (i.e. State / Province) */
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['id'] = 'field_mailing_address_administrative_area';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['field'] = 'field_mailing_address_administrative_area';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['label'] = 'State';
+  /* Field: User: Mailing address - Postal code */
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['id'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['field'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['label'] = 'Zip Code';
+  /* Sort criterion: User: Mailing address - Postal code */
+  $handler->display->display_options['sorts']['field_mailing_address_postal_code']['id'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['sorts']['field_mailing_address_postal_code']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['sorts']['field_mailing_address_postal_code']['field'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['sorts']['field_mailing_address_postal_code']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_mailing_address_postal_code']['expose']['label'] = 'Zip Code';
+  /* Sort criterion: Field: Number of BikeAbout Copies to Print (field_number_of_bikeabout_copies) */
+  $handler->display->display_options['sorts']['field_number_of_bikeabout_copies_value']['id'] = 'field_number_of_bikeabout_copies_value';
+  $handler->display->display_options['sorts']['field_number_of_bikeabout_copies_value']['table'] = 'field_data_field_number_of_bikeabout_copies';
+  $handler->display->display_options['sorts']['field_number_of_bikeabout_copies_value']['field'] = 'field_number_of_bikeabout_copies_value';
+  $handler->display->display_options['sorts']['field_number_of_bikeabout_copies_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_number_of_bikeabout_copies_value']['expose']['label'] = 'Number of BikeAbouts';
   /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
@@ -369,91 +346,80 @@ function mhcc_bikeabout_management_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '5, 10, 20, 50, 100';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Field: Number of BikeAbout Copies to Print */
-  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['id'] = 'field_number_of_bikeabout_copies';
-  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['table'] = 'field_data_field_number_of_bikeabout_copies';
-  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['field'] = 'field_number_of_bikeabout_copies';
-  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['label'] = 'Number of Copies';
-  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['settings'] = array(
-    'thousand_separator' => ',',
-    'prefix_suffix' => 0,
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_number_of_bikeabout_copies' => 'field_number_of_bikeabout_copies',
+    'uid' => 'uid',
+    'field_formal_full_name' => 'field_formal_full_name',
+    'field_mailing_address' => 'field_mailing_address',
+    'field_mailing_address_4' => 'field_mailing_address',
+    'field_mailing_address_1' => 'field_mailing_address_1',
+    'field_mailing_address_2' => 'field_mailing_address_2',
+    'field_mailing_address_3' => 'field_mailing_address_3',
   );
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: User: Formal Full Name */
-  $handler->display->display_options['fields']['field_formal_full_name']['id'] = 'field_formal_full_name';
-  $handler->display->display_options['fields']['field_formal_full_name']['table'] = 'field_data_field_formal_full_name';
-  $handler->display->display_options['fields']['field_formal_full_name']['field'] = 'field_formal_full_name';
-  $handler->display->display_options['fields']['field_formal_full_name']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_formal_full_name']['alter']['path'] = 'users/[uid]/edit';
-  $handler->display->display_options['fields']['field_formal_full_name']['alter']['trim_whitespace'] = TRUE;
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address']['id'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['label'] = 'Street';
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['text'] = '[field_mailing_address-thoroughfare]';
-  $handler->display->display_options['fields']['field_mailing_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
+  $handler->display->display_options['style_options']['default'] = 'field_mailing_address_3';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_number_of_bikeabout_copies' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'uid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_formal_full_name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_mailing_address' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '<br />',
+      'empty_column' => 0,
+    ),
+    'field_mailing_address_4' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_mailing_address_1' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_mailing_address_2' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_mailing_address_3' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
     ),
   );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_1']['id'] = 'field_mailing_address_1';
-  $handler->display->display_options['fields']['field_mailing_address_1']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['label'] = 'City';
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['text'] = '[field_mailing_address_1-locality]';
-  $handler->display->display_options['fields']['field_mailing_address_1']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_1']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_2']['id'] = 'field_mailing_address_2';
-  $handler->display->display_options['fields']['field_mailing_address_2']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['label'] = 'State';
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['text'] = '[field_mailing_address_2-administrative_area]';
-  $handler->display->display_options['fields']['field_mailing_address_2']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_2']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_3']['id'] = 'field_mailing_address_3';
-  $handler->display->display_options['fields']['field_mailing_address_3']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['label'] = 'Zip Code';
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['text'] = '[field_mailing_address_3-postal_code]';
-  $handler->display->display_options['fields']['field_mailing_address_3']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_3']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['path'] = 'bikeabout/users-list';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'BikeAbout Users';
@@ -481,69 +447,87 @@ function mhcc_bikeabout_management_views_default_views() {
   $handler->display->display_options['fields']['field_formal_full_name']['id'] = 'field_formal_full_name';
   $handler->display->display_options['fields']['field_formal_full_name']['table'] = 'field_data_field_formal_full_name';
   $handler->display->display_options['fields']['field_formal_full_name']['field'] = 'field_formal_full_name';
+  $handler->display->display_options['fields']['field_formal_full_name']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_formal_full_name']['alter']['path'] = 'users/[uid]/edit';
-  $handler->display->display_options['fields']['field_formal_full_name']['alter']['trim_whitespace'] = TRUE;
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address']['id'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address']['label'] = 'Street';
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address']['alter']['text'] = '[field_mailing_address-thoroughfare]';
-  $handler->display->display_options['fields']['field_mailing_address']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_1']['id'] = 'field_mailing_address_1';
-  $handler->display->display_options['fields']['field_mailing_address_1']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_1']['label'] = 'City';
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_1']['alter']['text'] = '[field_mailing_address_1-locality]';
-  $handler->display->display_options['fields']['field_mailing_address_1']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_1']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_2']['id'] = 'field_mailing_address_2';
-  $handler->display->display_options['fields']['field_mailing_address_2']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_2']['label'] = 'State';
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_2']['alter']['text'] = '[field_mailing_address_2-administrative_area]';
-  $handler->display->display_options['fields']['field_mailing_address_2']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_2']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
-  /* Field: User: Mailing address */
-  $handler->display->display_options['fields']['field_mailing_address_3']['id'] = 'field_mailing_address_3';
-  $handler->display->display_options['fields']['field_mailing_address_3']['table'] = 'field_data_field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['field'] = 'field_mailing_address';
-  $handler->display->display_options['fields']['field_mailing_address_3']['label'] = 'Zip Code';
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_mailing_address_3']['alter']['text'] = '[field_mailing_address_3-postal_code]';
-  $handler->display->display_options['fields']['field_mailing_address_3']['click_sort_column'] = 'country';
-  $handler->display->display_options['fields']['field_mailing_address_3']['settings'] = array(
-    'use_widget_handlers' => 0,
-    'format_handlers' => array(
-      'address' => 'address',
-      'address-hide-country' => 'address-hide-country',
-    ),
-  );
+  /* Field: User: Mailing address - Thoroughfare (i.e. Street address) */
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare_1']['id'] = 'field_mailing_address_thoroughfare_1';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare_1']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare_1']['field'] = 'field_mailing_address_thoroughfare';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare_1']['label'] = 'Street';
+  /* Field: User: Mailing address - Premise (i.e. Apartment / Suite number) */
+  $handler->display->display_options['fields']['field_mailing_address_premise_1']['id'] = 'field_mailing_address_premise_1';
+  $handler->display->display_options['fields']['field_mailing_address_premise_1']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_premise_1']['field'] = 'field_mailing_address_premise';
+  $handler->display->display_options['fields']['field_mailing_address_premise_1']['label'] = 'Street 2';
+  /* Field: User: Mailing address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_mailing_address_locality_1']['id'] = 'field_mailing_address_locality_1';
+  $handler->display->display_options['fields']['field_mailing_address_locality_1']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_locality_1']['field'] = 'field_mailing_address_locality';
+  $handler->display->display_options['fields']['field_mailing_address_locality_1']['label'] = 'City';
+  /* Field: User: Mailing address - Administrative area (i.e. State / Province) */
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area_1']['id'] = 'field_mailing_address_administrative_area_1';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area_1']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area_1']['field'] = 'field_mailing_address_administrative_area';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area_1']['label'] = 'State';
+  /* Field: User: Mailing address - Postal code */
+  $handler->display->display_options['fields']['field_mailing_address_postal_code_1']['id'] = 'field_mailing_address_postal_code_1';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code_1']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code_1']['field'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code_1']['label'] = 'Zip Code';
   $handler->display->display_options['path'] = 'bikeabout/users-list/xls';
+  $handler->display->display_options['displays'] = array(
+    'page' => 'page',
+    'default' => 0,
+  );
+
+  /* Display: Data export */
+  $handler = $view->new_display('views_data_export', 'Data export', 'views_data_export_1');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['style_plugin'] = 'views_data_export_xls';
+  $handler->display->display_options['style_options']['provide_file'] = 1;
+  $handler->display->display_options['style_options']['filename'] = 'Printed BikeAbout Members %timestamp-full.xls';
+  $handler->display->display_options['style_options']['parent_sort'] = 1;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Field: Number of BikeAbout Copies to Print */
+  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['id'] = 'field_number_of_bikeabout_copies';
+  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['table'] = 'field_data_field_number_of_bikeabout_copies';
+  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['field'] = 'field_number_of_bikeabout_copies';
+  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['label'] = 'Number of Copies';
+  $handler->display->display_options['fields']['field_number_of_bikeabout_copies']['settings'] = array(
+    'thousand_separator' => ',',
+    'prefix_suffix' => 0,
+  );
+  /* Field: User: Formal Full Name */
+  $handler->display->display_options['fields']['field_formal_full_name']['id'] = 'field_formal_full_name';
+  $handler->display->display_options['fields']['field_formal_full_name']['table'] = 'field_data_field_formal_full_name';
+  $handler->display->display_options['fields']['field_formal_full_name']['field'] = 'field_formal_full_name';
+  $handler->display->display_options['fields']['field_formal_full_name']['alter']['path'] = 'users/[uid]/edit';
+  /* Field: User: Mailing address - Thoroughfare (i.e. Street address) */
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['id'] = 'field_mailing_address_thoroughfare';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['field'] = 'field_mailing_address_thoroughfare';
+  $handler->display->display_options['fields']['field_mailing_address_thoroughfare']['label'] = 'Street';
+  /* Field: User: Mailing address - Premise (i.e. Apartment / Suite number) */
+  $handler->display->display_options['fields']['field_mailing_address_premise']['id'] = 'field_mailing_address_premise';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['field'] = 'field_mailing_address_premise';
+  $handler->display->display_options['fields']['field_mailing_address_premise']['label'] = 'Street 2';
+  /* Field: User: Mailing address - Locality (i.e. City) */
+  $handler->display->display_options['fields']['field_mailing_address_locality']['id'] = 'field_mailing_address_locality';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['field'] = 'field_mailing_address_locality';
+  $handler->display->display_options['fields']['field_mailing_address_locality']['label'] = 'City';
+  /* Field: User: Mailing address - Administrative area (i.e. State / Province) */
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['id'] = 'field_mailing_address_administrative_area';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['field'] = 'field_mailing_address_administrative_area';
+  $handler->display->display_options['fields']['field_mailing_address_administrative_area']['label'] = 'State';
+  /* Field: User: Mailing address - Postal code */
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['id'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['table'] = 'field_data_field_mailing_address';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['field'] = 'field_mailing_address_postal_code';
+  $handler->display->display_options['fields']['field_mailing_address_postal_code']['label'] = 'Zip Code';
+  $handler->display->display_options['path'] = 'bikeabout/users-list/xls-data';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
     'default' => 0,

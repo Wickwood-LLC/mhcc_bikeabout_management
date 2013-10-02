@@ -22,9 +22,10 @@ function mhcc_bikeabout_management_menu_default_menu_links() {
     'module' => 'menu',
     'hidden' => 0,
     'external' => 0,
-    'has_children' => 1,
+    'has_children' => 0,
     'expanded' => 1,
-    'weight' => -46,
+    'weight' => -49,
+    'parent_path' => 'node/2427',
   );
   // Exported menu link: user-menu:bikeabout/organizations-list
   $menu_links['user-menu:bikeabout/organizations-list'] = array(
@@ -34,7 +35,7 @@ function mhcc_bikeabout_management_menu_default_menu_links() {
     'link_title' => 'BikeAbout Organizations',
     'options' => array(),
     'module' => 'system',
-    'hidden' => 0,
+    'hidden' => 1,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
@@ -49,7 +50,7 @@ function mhcc_bikeabout_management_menu_default_menu_links() {
     'link_title' => 'BikeAbout Users',
     'options' => array(),
     'module' => 'system',
-    'hidden' => 0,
+    'hidden' => 1,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
@@ -68,11 +69,11 @@ function mhcc_bikeabout_management_menu_default_menu_links() {
       ),
     ),
     'module' => 'menu',
-    'hidden' => 0,
+    'hidden' => 1,
     'external' => 0,
-    'has_children' => 1,
+    'has_children' => 0,
     'expanded' => 0,
-    'weight' => -43,
+    'weight' => -42,
   );
   // Translatables
   // Included for use with string extractors like potx.

@@ -143,6 +143,9 @@ function mhcc_bikeabout_management_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_location_address',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
     'foreign keys' => array(),
     'indexes' => array(
       'lid' => array(
@@ -189,7 +192,7 @@ function mhcc_bikeabout_management_field_default_field_bases() {
               'weight' => 14,
             ),
             'locpick' => array(
-              'collect' => 0,
+              'collect' => 1,
               'weight' => 20,
             ),
             'name' => array(
